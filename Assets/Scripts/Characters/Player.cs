@@ -21,6 +21,7 @@ public class Player : MonoBehaviour
     public Bullet BulletPrefab;
 
     public ReactiveProperty<int> Score;
+    public event Action OnDie;
     
     private enum MovementDirection
     {
@@ -119,6 +120,17 @@ public class Player : MonoBehaviour
         Cursor.position = mousePoint;
     }
 
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (!other.CompareTag(Tags.Enemy)) return;
+        Die(KillType.MonsterTouch);
+    }
+
+    private void Die(KillType killType)
+    {
+        OnDie?.Invoke();
+    }
+    
     private void OnKill(KillType killType)
     {
         if (killType != KillType.Bullet) return;

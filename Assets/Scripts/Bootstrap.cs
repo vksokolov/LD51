@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UniRx;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Bootstrap : MonoBehaviour
@@ -28,6 +29,10 @@ public class Bootstrap : MonoBehaviour
     [Header("GameMenu")] 
     [SerializeField] private Transform _gameMenu;
     [SerializeField] private Button _startButton;
+    
+    [Header("GameOver")]
+    [SerializeField] private Transform _gameOver;
+    [SerializeField] private Button _toMainMenuButton;
     
     private TimeService _timeService;
     private MonsterSpawner _monsterSpawner;
@@ -57,6 +62,8 @@ public class Bootstrap : MonoBehaviour
             .Subscribe(SetScoreText);
         
         ScoreWrapper.gameObject.SetActive(true);
+
+        Player.Instance.OnDie += ShowGameOverScreen;
     }
 
     private void Reset()
@@ -69,5 +76,11 @@ public class Bootstrap : MonoBehaviour
     {
         ScoreText.text = score.ToString();
         ScoreText.fontSize = score / 1000 + 80;
+    }
+
+    private void ShowGameOverScreen()
+    {
+        _gameOver.gameObject.SetActive(true);
+        _toMainMenuButton.onClick.AddListener(() => SceneManager.LoadScene(0));
     }
 }
