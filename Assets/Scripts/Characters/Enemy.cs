@@ -24,4 +24,15 @@ public class Enemy : MonoBehaviour
         var playerPos = Player.Instance.transform.position;
         transform.LookAt2D(playerPos);
     }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (!other.CompareTag(Tags.Bullet)) return;
+        Die();
+    }
+
+    private void Die() 
+    {
+        Destroy(gameObject);
+    }
 }

@@ -11,18 +11,23 @@ public class Player : MonoBehaviour
     public float Speed;
     public Transform MidPointToCursor;
     public Transform Cursor;
-    
     [Range(0,1f)]
     public float CameraLerp;
+    
+    [Header("Pistol")]
+    public Pistol Pistol;
+    public Bullet BulletPrefab;
 
     private void Awake()
     {
         Instance = this;
+        Pistol.Init(BulletPrefab);
     }
 
     private void Update()
     {
         Move();
+        Shoot();
         LookAtCursor();
         RecalculateMidPoint();
     }
@@ -44,6 +49,12 @@ public class Player : MonoBehaviour
             dir += Vector3.right;
 
         transform.position += dir * (Time.deltaTime * Speed);
+    }
+
+    private void Shoot()
+    {
+        if (Input.GetMouseButtonDown(0))
+            Pistol.Shoot();
     }
     
     private void LookAtCursor()
