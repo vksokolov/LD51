@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using UniRx;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -19,6 +20,8 @@ public class Player : MonoBehaviour
     public Pistol Pistol;
     public Bullet BulletPrefab;
 
+    public ReactiveProperty<int> Score;
+    
     private enum MovementDirection
     {
         Up,
@@ -48,9 +51,17 @@ public class Player : MonoBehaviour
     
     private void Awake()
     {
+        Reset();
+    }
+
+    public void Reset()
+    {
         Instance = this;
         Pistol.Init(BulletPrefab);
         SetDefaultControls();
+        Enemy.OnKill -= OnKill;
+        Enemy.OnKill += OnKill;
+        Score = new ReactiveProperty<int>(0);
     }
 
     private void Update()
@@ -106,5 +117,11 @@ public class Player : MonoBehaviour
         var position = transform.position;
         MidPointToCursor.position = Vector3.Lerp(position, mousePoint, CameraLerp);
         Cursor.position = mousePoint;
+    }
+
+    private void OnKill(KillType killType)
+    {
+        if (killType != KillType.Bullet) return;
+        Score.Value++;
     }
 }

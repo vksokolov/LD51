@@ -1,9 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    public static event Action<KillType> OnKill;
+    
     public static float SpeedMultiplier = 1;
     
     public float Speed;
@@ -30,11 +33,12 @@ public class Enemy : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (!other.CompareTag(Tags.Bullet)) return;
-        Die();
+        Die(KillType.Bullet);
     }
 
-    private void Die() 
+    private void Die(KillType killType) 
     {
+        OnKill?.Invoke(killType);
         Destroy(gameObject);
     }
 }

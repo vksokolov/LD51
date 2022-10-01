@@ -7,14 +7,25 @@ using Random = UnityEngine.Random;
 
 public class MonsterSpawner : MonoBehaviour
 {
-    [SerializeField] private Transform _root;
-    [SerializeField] private Enemy _enemyPrefab;
-    [SerializeField] private float _secondsToSpawn;
-    [SerializeField] private float _minDistanceToPlayer;
+    private Transform _root;
+    private Enemy _enemyPrefab;
+    private float _secondsToSpawn;
+    private float _minDistanceToPlayer;
     private float MinSqrDistanceToPlayer => _minDistanceToPlayer * _minDistanceToPlayer;
     
     private float _acc;
 
+    public void Init(
+        Transform root,
+        Enemy enemyPrefab,
+        float secondsToSpawn,
+        float minDistanceToPlayer)
+    {
+        _root = root;
+        _enemyPrefab = enemyPrefab;
+        _secondsToSpawn = secondsToSpawn;
+        _minDistanceToPlayer = minDistanceToPlayer;
+    }
     private void Update()
     {
         _acc += Time.deltaTime;
