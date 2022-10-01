@@ -1,19 +1,25 @@
 ﻿using System;
+using UniRx;
 using UnityEngine;
 
 public class TimeService : MonoBehaviour
 {
-    private const int Ten = 10;
+    public const int Ten = 10;
 
-    private float SecondsToChangeTheRules { get; set; }
+    public ReactiveProperty<float> SecondsToChangeTheRules { get; private set; }
     public event Action TenSecondsPassed;
-    
+
+    private void Awake()
+    {
+        SecondsToChangeTheRules = new ReactiveProperty<float>(Ten);
+    }
+
     private void Update()
     {
-        SecondsToChangeTheRules -= Time.deltaTime;
-        if (!(SecondsToChangeTheRules <= 0)) return;
+        SecondsToChangeTheRules.Value -= Time.deltaTime;
+        if (!(SecondsToChangeTheRules.Value <= 0)) return;
         
-        SecondsToChangeTheRules += Ten;
+        SecondsToChangeTheRules.Value += Ten;
         TenSecondsPassed?.Invoke();
     }
 }

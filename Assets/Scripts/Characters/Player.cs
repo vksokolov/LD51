@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Player : MonoBehaviour
 {
@@ -18,10 +19,38 @@ public class Player : MonoBehaviour
     public Pistol Pistol;
     public Bullet BulletPrefab;
 
+    private enum MovementDirection
+    {
+        Up,
+        Left,
+        Down,
+        Right,
+    }
+    
+    private Dictionary<MoveDirection, KeyCode> _inputMap;
+    public void SetControls(KeyCode up, KeyCode left, KeyCode down, KeyCode right)
+    {
+        _inputMap = new Dictionary<MoveDirection, KeyCode>()
+        {
+            {MoveDirection.Up, up},
+            {MoveDirection.Left, left},
+            {MoveDirection.Down, down},
+            {MoveDirection.Right, right},
+        };
+    }
+
+    public void SetDefaultControls() =>
+        SetControls(
+            KeyCode.W,
+            KeyCode.A,
+            KeyCode.S,
+            KeyCode.D);
+    
     private void Awake()
     {
         Instance = this;
         Pistol.Init(BulletPrefab);
+        SetDefaultControls();
     }
 
     private void Update()
@@ -36,16 +65,16 @@ public class Player : MonoBehaviour
     {
         Vector3 dir = Vector3.zero;
         
-        if (Input.GetKey(KeyCode.W))
+        if (Input.GetKey(_inputMap[MoveDirection.Up]))
             dir += Vector3.up;
         
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetKey(_inputMap[MoveDirection.Left]))
             dir += Vector3.left;
         
-        if (Input.GetKey(KeyCode.S))
+        if (Input.GetKey(_inputMap[MoveDirection.Down]))
             dir += Vector3.down;
         
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetKey(_inputMap[MoveDirection.Right]))
             dir += Vector3.right;
 
         transform.position += dir * (Time.deltaTime * Speed);
