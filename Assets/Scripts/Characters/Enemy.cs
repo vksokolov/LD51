@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    public static float SpeedMultiplier = 1;
+    
     public float Speed;
     // Update is called once per frame
     private void Update()
@@ -16,7 +18,7 @@ public class Enemy : MonoBehaviour
     private void Move()
     {
         var dir = Player.Instance.transform.position - transform.position;
-        transform.position += dir.normalized * (Speed * Time.deltaTime);
+        transform.position += dir.normalized * (Speed * SpeedMultiplier * Time.deltaTime);
     }
     
     private void LookAtPlayer()
