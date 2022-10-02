@@ -138,9 +138,9 @@ public class Player : MonoBehaviour
         MidPointToCursor.position = Vector3.Lerp(position, mousePoint, CameraLerp);
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnCollisionEnter2D(Collision2D other)
     {
-        if (!other.CompareTag(Tags.Enemy)) return;
+        if (!other.collider.CompareTag(Tags.Enemy)) return;
         Die(KillType.MonsterTouch);
     }
 

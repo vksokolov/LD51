@@ -35,8 +35,8 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (!other.CompareTag(Tags.Bullet)) return;
-        Die(KillType.Bullet);
+        if (other.CompareTag(Tags.Bullet))
+            Die(KillType.Bullet);
     }
 
     private void Die(KillType killType) 

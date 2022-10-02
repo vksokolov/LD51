@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5000861140072242778}
   - component: {fileID: 231531186475988401}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: m3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -91,7 +91,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3769458526617358366}
   - component: {fileID: 6270661180568847323}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: m2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -172,7 +172,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4502598069602621205}
   - component: {fileID: 4502598069602621206}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Eye (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -252,7 +252,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4502598070077615882}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: MidPointToCursor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -287,7 +287,7 @@ GameObject:
   - component: {fileID: 8523319573704388360}
   - component: {fileID: 4396129392324845969}
   - component: {fileID: 8234879087656911256}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -392,7 +392,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4502598070918904782}
   - component: {fileID: 4502598070918904783}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: m1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -473,7 +473,7 @@ GameObject:
   m_Component:
   - component: {fileID: 455568146130764630}
   - component: {fileID: 7862055709769696402}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: m4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
