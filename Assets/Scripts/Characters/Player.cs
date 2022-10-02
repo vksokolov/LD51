@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using UniRx;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -67,7 +68,20 @@ public class Player : MonoBehaviour
         SetDefaultControls();
         Enemy.OnKill -= OnKill;
         Enemy.OnKill += OnKill;
+        Pistol.OnShoot -= OnShoot;
+        Pistol.OnShoot += OnShoot;
         Score = new ReactiveProperty<int>(0);
+    }
+
+    private async void OnShoot()
+    {
+        float recoilTime = .1f;
+        while (recoilTime > 0)
+        {
+            recoilTime -= Time.deltaTime;
+            await UniTask.Yield(PlayerLoopTiming.Update);
+            transform.position -= transform.right * (recoilTime * 40 * Time.deltaTime);
+        }
     }
 
     public void Init(

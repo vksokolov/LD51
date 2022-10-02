@@ -53,6 +53,7 @@ public class Bootstrap : MonoBehaviour
     private AudioService _audioService;
     private GameModeService _gameModeService;
     private Player _player;
+    private CinemachineShakeController _shakeController;
 
     private void Awake()
     {
@@ -115,6 +116,16 @@ public class Bootstrap : MonoBehaviour
         // Cinemachine
 
         _virtualCamera.Follow = _player.MidPointToCursor;
+        _shakeController = new CinemachineShakeController(_virtualCamera);
+        _player.Pistol.OnShoot += () =>
+        {
+            _shakeController.Shake(3, 200);
+        };
+        _player.Pistol.OnJam += () =>
+        {
+            _shakeController.Shake(1f, 100);
+        };
+
     }
 
     private void Reset()
