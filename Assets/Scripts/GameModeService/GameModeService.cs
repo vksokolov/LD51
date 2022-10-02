@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 
@@ -36,6 +37,8 @@ public class GameModeService
         _timeService = timeService;
         Subscribe();
     }
+
+    public List<GameModeInfo> GetModifierInfos() => _modifiers.Select(x => x.Info).ToList();
 
     private void Subscribe()
     {
