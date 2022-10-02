@@ -6,14 +6,12 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     public static event Action<KillType> OnKill;
-    
     public static float SpeedMultiplier = 1;
-    
-    public float Speed;
-
     public event Action OnDie;
     
-    // Update is called once per frame
+    [SerializeField] public GameObject NotBloodPrefab;
+    public float Speed;
+    
     private void Update()
     {
         if (Player.Instance == null) return;
@@ -39,8 +37,12 @@ public class Enemy : MonoBehaviour
             Die(KillType.Bullet);
     }
 
-    private void Die(KillType killType) 
+    private void Die(KillType killType)
     {
+        var vfx = Instantiate(NotBloodPrefab).transform;
+        vfx.SetParent(null);
+        vfx.transform.position = transform.position;
+        vfx.transform.localRotation = transform.localRotation;
         OnDie?.Invoke();
         OnKill?.Invoke(killType);
     }

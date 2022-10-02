@@ -325,6 +325,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e95f42e97bf122d44a57795de584edde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  NotBloodPrefab: {fileID: 4300219353524136166, guid: b40b64f8ab50b844090e61daa0afe9f9,
+    type: 3}
   Speed: 2.2
 --- !u!58 &8523319573704388360
 CircleCollider2D:
