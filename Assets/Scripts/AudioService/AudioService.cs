@@ -42,7 +42,9 @@ public class AudioService
     public void OnGameModeChanged(GameModeInfo info)
     {
         _gameModeSource.Stop();
-        _gameModeSource.clip = _modeClips[info];
+        if (!_modeClips.TryGetValue(info, out var clip)) return;
+        
+        _gameModeSource.clip = clip;
         _gameModeSource.Play();
     }
 
@@ -89,6 +91,7 @@ public class AudioService
         while(_audioSourcesInUse.Count > 0)
         {
             var obj = _audioSourcesInUse.ElementAt(0);
+            _audioSourcesInUse.Remove(obj);
             obj.Stop();
             _freeAudioSources.Add(obj);
         }

@@ -17,6 +17,7 @@ public class MonsterSpawner : MonoBehaviour, IDisposable
     private float _acc;
 
     private ObjectPool<Enemy, Enemy> _pool;
+    private bool _isInitialized;
 
     public void Init(
         Transform root,
@@ -36,10 +37,13 @@ public class MonsterSpawner : MonoBehaviour, IDisposable
             {
                 enemy.Reset();
             });
+        _isInitialized = true;
     }
     
     private void Update()
     {
+        if (!_isInitialized) return;
+        
         _acc += Time.deltaTime;
         if (_acc < _secondsToSpawn) return;
 
@@ -70,6 +74,8 @@ public class MonsterSpawner : MonoBehaviour, IDisposable
 
     public void Dispose()
     {
+        _isInitialized = false;
+        _acc = 0;
         _pool.FreeAll();
     }
 }

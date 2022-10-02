@@ -87,8 +87,8 @@ public class GameModeService
     public void Dispose()
     {
         RemoveOldMode();
-        Unsubscribe();
         ApplyDefaultMode();
+        Unsubscribe();
     }
 
     private void ApplyDefaultMode()
@@ -98,6 +98,7 @@ public class GameModeService
         
         _currentMode = _defaultModifier;
         _currentMode.Apply();
+        GameModeChanged?.Invoke(_currentMode.Info);
         _currentMode = null;
     }
 }

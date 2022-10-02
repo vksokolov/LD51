@@ -106,7 +106,7 @@ public class Bootstrap : MonoBehaviour
             .ObserveEveryValueChanged(x => x.Value)
             .Subscribe(SetScoreText);
         _player.OnDie += ShowGameOverScreen;
-        _player.OnDie += _gameModeService.Unsubscribe;
+        _player.OnDie += _gameModeService.Dispose;
 
         // Score
 
@@ -139,9 +139,6 @@ public class Bootstrap : MonoBehaviour
     private void ShowGameOverScreen()
     {
         _gameOverMenu.gameObject.SetActive(true);
-        _toMainMenuButton.onClick.AddListener(() =>
-        {
-            Reset();
-        });
+        _toMainMenuButton.onClick.AddListener(Reset);
     }
 }
