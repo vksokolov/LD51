@@ -10,6 +10,9 @@ public class Enemy : MonoBehaviour
     public static float SpeedMultiplier = 1;
     
     public float Speed;
+
+    public event Action OnDie;
+    
     // Update is called once per frame
     private void Update()
     {
@@ -38,7 +41,13 @@ public class Enemy : MonoBehaviour
 
     private void Die(KillType killType) 
     {
+        OnDie?.Invoke();
         OnKill?.Invoke(killType);
-        Destroy(gameObject);
+    }
+
+    public void Reset()
+    {
+        gameObject.SetActive(false);
+        OnDie = null;
     }
 }

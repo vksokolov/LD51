@@ -12,14 +12,13 @@ public class Player : MonoBehaviour
     private static readonly int IsMoving = Animator.StringToHash(AnimatorIsMovingTrigger);
     public static Player Instance { get; private set; }
     
-    [SerializeField] private Camera Camera;
     [SerializeField] private float Speed;
-    [SerializeField] private Transform MidPointToCursor;
-    [SerializeField] private Transform Cursor;
+    [SerializeField] public Transform MidPointToCursor;
     [Range(0,1f)]
     [SerializeField] private float CameraLerp;
 
     private Animator _animator;
+    private Camera _camera;
     
     [Header("Pistol")]
     public Pistol Pistol;
@@ -71,11 +70,14 @@ public class Player : MonoBehaviour
         Score = new ReactiveProperty<int>(0);
     }
 
-    public void Init(AudioService audioService)
+    public void Init(
+        Camera mainCamera,
+        AudioService audioService)
     {
         _audioService = audioService;
         Reset();
         _isInitialized = true;
+        _camera = mainCamera;
     }
     
     private void Update()
@@ -119,7 +121,7 @@ public class Player : MonoBehaviour
     {
         var mousePos = Input.mousePosition;
         //mousePos.z = 5.23; //The distance between the camera and object
-        var objectPos = Camera.WorldToScreenPoint(transform.position);
+        var objectPos = _camera.WorldToScreenPoint(transform.position);
         mousePos.x = mousePos.x - objectPos.x;
         mousePos.y = mousePos.y - objectPos.y;
         var angle = Mathf.Atan2(mousePos.y, mousePos.x) * Mathf.Rad2Deg;
@@ -130,11 +132,10 @@ public class Player : MonoBehaviour
     {
         Vector3 mousePoint = Input.mousePosition;
         mousePoint.z = 10;
-        mousePoint = Camera.ScreenToWorldPoint(mousePoint);
+        mousePoint = _camera.ScreenToWorldPoint(mousePoint);
         
         var position = transform.position;
         MidPointToCursor.position = Vector3.Lerp(position, mousePoint, CameraLerp);
-        Cursor.position = mousePoint;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
