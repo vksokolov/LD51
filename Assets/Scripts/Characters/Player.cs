@@ -5,23 +5,31 @@ using UniRx;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+[RequireComponent(typeof(Animator))]
 public class Player : MonoBehaviour
 {
+    private const string AnimatorIsMovingTrigger = "IsMoving";
+    private static readonly int IsMoving = Animator.StringToHash(AnimatorIsMovingTrigger);
     public static Player Instance { get; private set; }
     
-    public Camera Camera;
-    public float Speed;
-    public Transform MidPointToCursor;
-    public Transform Cursor;
+    [SerializeField] private Camera Camera;
+    [SerializeField] private float Speed;
+    [SerializeField] private Transform MidPointToCursor;
+    [SerializeField] private Transform Cursor;
     [Range(0,1f)]
-    public float CameraLerp;
+    [SerializeField] private float CameraLerp;
+
+    private Animator _animator;
     
     [Header("Pistol")]
     public Pistol Pistol;
     public Bullet BulletPrefab;
 
     public ReactiveProperty<int> Score;
+    private AudioService _audioService;
     public event Action OnDie;
+    private bool isDead;
+    private bool _isInitialized = false;
     
     private enum MovementDirection
     {
@@ -32,6 +40,7 @@ public class Player : MonoBehaviour
     }
     
     private Dictionary<MoveDirection, KeyCode> _inputMap;
+
     public void SetControls(KeyCode up, KeyCode left, KeyCode down, KeyCode right)
     {
         _inputMap = new Dictionary<MoveDirection, KeyCode>()
@@ -50,23 +59,29 @@ public class Player : MonoBehaviour
             KeyCode.S,
             KeyCode.D);
     
-    private void Awake()
-    {
-        Reset();
-    }
-
     public void Reset()
     {
+        _animator = GetComponent<Animator>();
+        isDead = false;
         Instance = this;
-        Pistol.Init(BulletPrefab);
+        Pistol.Init(BulletPrefab, _audioService);
         SetDefaultControls();
         Enemy.OnKill -= OnKill;
         Enemy.OnKill += OnKill;
         Score = new ReactiveProperty<int>(0);
     }
 
+    public void Init(AudioService audioService)
+    {
+        _audioService = audioService;
+        Reset();
+        _isInitialized = true;
+    }
+    
     private void Update()
     {
+        if (isDead || !_isInitialized) return;
+        
         Move();
         Shoot();
         LookAtCursor();
@@ -90,12 +105,14 @@ public class Player : MonoBehaviour
             dir += Vector3.right;
 
         transform.position += dir * (Time.deltaTime * Speed);
+        
+        _animator.SetBool(IsMoving, dir != Vector3.zero);
     }
 
     private void Shoot()
     {
         if (Input.GetMouseButtonDown(0))
-            Pistol.Shoot();
+            Pistol.TryShoot();
     }
     
     private void LookAtCursor()
@@ -128,6 +145,7 @@ public class Player : MonoBehaviour
 
     private void Die(KillType killType)
     {
+        isDead = true;
         OnDie?.Invoke();
     }
     

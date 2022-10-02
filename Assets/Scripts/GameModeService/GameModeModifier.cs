@@ -14,7 +14,7 @@ public abstract class GameModeModifier
     public abstract void Remove();
 }
 
-public class GameModeInfo
+public struct GameModeInfo
 {
     public string Name { get; }
     public string Description { get; }

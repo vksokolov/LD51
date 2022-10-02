@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 
@@ -28,21 +29,24 @@ public class GameModeService
         GameModeChanged += _gameModeTextWrapper.OnGameModeChanged;
         _modifiers = new List<GameModeModifier>()
         {
-            new EnemySpeedModifier("FASTER ENEMIES", "just.. run!", 2f),
-            new EnemySpeedModifier("SLOWER ENEMIES", "chill a bit :>", .5f),
+            new EnemySpeedModifier("FASTER ENEMIES", "just.. run!", 1.6f),
+            new EnemySpeedModifier("SLOWER ENEMIES", "chill a bit :>", .65f),
             new InputModifier("INPUT INVERTED", "@#$%^&*", InputModifier.InvertedAxis.Horizontal | InputModifier.InvertedAxis.Vertical),
             new FuncModifier("GLAUCOMA", "you can't see a thing", TurnOnFade, TurnOffFade),
+            new GunJamModifier("JAM", "the bad one", .75f),
         };
         _timeService = timeService;
         Subscribe();
     }
+
+    public List<GameModeInfo> GetModifierInfos() => _modifiers.Select(x => x.Info).ToList();
 
     private void Subscribe()
     {
         _timeService.TenSecondsPassed += ApplyRandomMode;
     }
 
-    private void Unsubscribe()
+    public void Unsubscribe()
     {
         _timeService.TenSecondsPassed -= ApplyRandomMode;
         GameModeChanged = null;

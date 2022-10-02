@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UniRx;
 using UnityEngine;
@@ -19,6 +20,9 @@ public class Bootstrap : MonoBehaviour
     [Header("Score")]
     [SerializeField] private Transform ScoreWrapper;
     [SerializeField] private TextMeshProUGUI ScoreText;
+
+    [Header("Player")] 
+    [SerializeField] private Player _player;
     
     [Header("Monster Spawner")]
     [SerializeField] private Transform _root;
@@ -33,9 +37,16 @@ public class Bootstrap : MonoBehaviour
     [Header("GameOver")]
     [SerializeField] private Transform _gameOver;
     [SerializeField] private Button _toMainMenuButton;
+
+    [Header("Music")] 
+    [SerializeField] private AudioSource _mainSource;
+    [SerializeField] private AudioSource _modeSource;
+    [SerializeField] private AudioClip _mainTrack;
+    [SerializeField] private List<AudioClip> _modeTracks;
     
     private TimeService _timeService;
     private MonsterSpawner _monsterSpawner;
+    private AudioService _audioService;
     private GameModeService _gameModeService;
     
     private void Awake()
@@ -47,23 +58,51 @@ public class Bootstrap : MonoBehaviour
     {
         _gameMenu.gameObject.SetActive(false);
         
+        
+        // TimeService
         _timeService = new GameObject(nameof(TimeService)).AddComponent<TimeService>();
-        _gameModeService = new GameModeService(GameModeTextWrapper, _timeService, FullScreenFade);
         _timeService
             .SecondsToChangeTheRules
             .ObserveEveryValueChanged(x => x.Value / TimeService.Ten)
             .Subscribe(GameModeProgressBar.SetValue);
+        
+        
+        // GameModeService
+        
+        _gameModeService = new GameModeService(GameModeTextWrapper, _timeService, FullScreenFade);
+        
+        
+        // MonsterSpawner
+        
         _monsterSpawner = new GameObject(nameof(MonsterSpawner)).AddComponent<MonsterSpawner>();
         _monsterSpawner.Init(_root, _enemyPrefab, _secondsToSpawn, _minDistanceToPlayer);
+
         
-        Player.Instance.Reset();
-        Player.Instance.Score
+        // Audio
+        
+        var modeInfos = _gameModeService.GetModifierInfos();
+        var trackDictionary = new Dictionary<GameModeInfo, AudioClip>();
+        modeInfos.ForEach(x => trackDictionary.Add(x, _modeTracks[trackDictionary.Count]));
+        _audioService = new AudioService(
+            _mainSource,
+            _modeSource,
+            _mainTrack,
+            trackDictionary);
+        _gameModeService.GameModeChanged += _audioService.OnGameModeChanged;
+        _audioService.Start();
+        
+        // Player
+        
+        _player.Init(_audioService);
+        _player.Score
             .ObserveEveryValueChanged(x => x.Value)
             .Subscribe(SetScoreText);
+        _player.OnDie += ShowGameOverScreen;
+        _player.OnDie += _gameModeService.Unsubscribe;
+        
+        // Score
         
         ScoreWrapper.gameObject.SetActive(true);
-
-        Player.Instance.OnDie += ShowGameOverScreen;
     }
 
     private void Reset()
