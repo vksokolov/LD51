@@ -95,7 +95,7 @@ public class Bootstrap : MonoBehaviour
             .ObserveEveryValueChanged(x => x.Value)
             .Subscribe(SetScoreText);
         Player.Instance.OnDie += ShowGameOverScreen;
-        
+        Player.Instance.OnDie += _gameModeService.Unsubscribe;
         
         // Score
         

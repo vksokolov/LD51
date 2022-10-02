@@ -22,6 +22,7 @@ public class Player : MonoBehaviour
 
     public ReactiveProperty<int> Score;
     public event Action OnDie;
+    private bool isDead = false;
     
     private enum MovementDirection
     {
@@ -57,6 +58,7 @@ public class Player : MonoBehaviour
 
     public void Reset()
     {
+        isDead = false;
         Instance = this;
         Pistol.Init(BulletPrefab);
         SetDefaultControls();
@@ -67,6 +69,8 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        if (isDead) return;
+        
         Move();
         Shoot();
         LookAtCursor();
@@ -128,6 +132,7 @@ public class Player : MonoBehaviour
 
     private void Die(KillType killType)
     {
+        isDead = true;
         OnDie?.Invoke();
     }
     

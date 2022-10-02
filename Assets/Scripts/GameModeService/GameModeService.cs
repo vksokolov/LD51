@@ -29,8 +29,8 @@ public class GameModeService
         GameModeChanged += _gameModeTextWrapper.OnGameModeChanged;
         _modifiers = new List<GameModeModifier>()
         {
-            new EnemySpeedModifier("FASTER ENEMIES", "just.. run!", 2f),
-            new EnemySpeedModifier("SLOWER ENEMIES", "chill a bit :>", .5f),
+            new EnemySpeedModifier("FASTER ENEMIES", "just.. run!", 1.4f),
+            new EnemySpeedModifier("SLOWER ENEMIES", "chill a bit :>", .65f),
             new InputModifier("INPUT INVERTED", "@#$%^&*", InputModifier.InvertedAxis.Horizontal | InputModifier.InvertedAxis.Vertical),
             new FuncModifier("GLAUCOMA", "you can't see a thing", TurnOnFade, TurnOffFade),
         };
@@ -45,7 +45,7 @@ public class GameModeService
         _timeService.TenSecondsPassed += ApplyRandomMode;
     }
 
-    private void Unsubscribe()
+    public void Unsubscribe()
     {
         _timeService.TenSecondsPassed -= ApplyRandomMode;
         GameModeChanged = null;

@@ -2419,8 +2419,8 @@ MonoBehaviour:
   _root: {fileID: 1636756416}
   _enemyPrefab: {fileID: 4502598070505282747, guid: b80b7393bb2d30144a9898ed30bceefe,
     type: 3}
-  _secondsToSpawn: 1
-  _minDistanceToPlayer: 7
+  _secondsToSpawn: 0.5
+  _minDistanceToPlayer: 8
   _gameMenu: {fileID: 2104232000}
   _startButton: {fileID: 1346384053}
   _gameOver: {fileID: 240809367}
@@ -2430,9 +2430,9 @@ MonoBehaviour:
   _mainTrack: {fileID: 8300000, guid: f0640628407b3c74ba27794f75a00266, type: 3}
   _modeTracks:
   - {fileID: 8300000, guid: fcfe062bff2bd5e40ab1185143c45183, type: 3}
-  - {fileID: 0}
+  - {fileID: 8300000, guid: 5861093647950804393f6665d6a8688f, type: 3}
   - {fileID: 8300000, guid: 6ac5a7fe8f1d0e342822f27b7fd7e1da, type: 3}
-  - {fileID: 8300000, guid: 07caa718a4d3315408cabc4c798d7219, type: 3}
+  - {fileID: 8300000, guid: 74ab8531c0986cf429cb945ce7d7839e, type: 3}
 --- !u!1 &1827855748
 GameObject:
   m_ObjectHideFlags: 0
