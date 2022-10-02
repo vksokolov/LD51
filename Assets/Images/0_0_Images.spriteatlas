@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 0_0_Images
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 1
+      crunchedCompression: 0
+      sRGB: 0
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 0
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: dc57c837c9a113b459281c09663d800b, type: 3}
+    bindAsDefault: 1
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 8b637e711c807134cad146ade2a87fd8, type: 3}
+  - {fileID: 21300000, guid: 347f05e3b6d1314498d13e94d4d71f46, type: 3}
+  - {fileID: 21300000, guid: 4e5a202444b84b44f81514904963648e, type: 3}
+  - {fileID: 21300000, guid: 6f6352749baebb549a8dda1c25b425c0, type: 3}
+  - {fileID: 21300000, guid: ff4caeb5bb5ab6d4284c910d69ee7424, type: 3}
+  - {fileID: 620825655395414567, guid: ef5a5c7601d0a3847a1537be9fe63fb4, type: 3}
+  - {fileID: -6942954565210132980, guid: ef5a5c7601d0a3847a1537be9fe63fb4, type: 3}
+  - {fileID: 21300000, guid: 5349f067ef7e01d49808a7a354fa9424, type: 3}
+  - {fileID: 21300000, guid: e7a17c67299b8674e80915e149b5c707, type: 3}
+  - {fileID: 21300000, guid: 55585ce8b6170e743ac96e5a8cff2323, type: 3}
+  - {fileID: 21300000, guid: d7edaa3941588114699c7e42a306bb5a, type: 3}
+  - {fileID: 21300000, guid: 39162859d2800df4b85bb1e75be42412, type: 3}
+  - {fileID: 21300000, guid: fc8983c96a9b8d046add470201e3927f, type: 3}
+  - {fileID: 21300000, guid: 1d684d3c9aaf1a14baccc0f7b23c1554, type: 3}
+  - {fileID: 21300000, guid: 64fc35fc028465f40a6b5dfa3b90e214, type: 3}
+  - {fileID: 21300000, guid: 1f34aa9d6c06ebd4a8dff59acbe89ffb, type: 3}
+  - {fileID: 21300000, guid: a3ab290e962e9a741833c16d0807f8e9, type: 3}
+  - {fileID: 21300000, guid: fed110afc32c4c34db842533839bde58, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - vignette
+  - boy2
+  - monster1
+  - candy5
+  - candy2
+  - gradient_0
+  - gradient_1
+  - candy6
+  - RadialFullscreenFade
+  - monster4
+  - monster2
+  - floor
+  - square
+  - candy1
+  - monster3
+  - candy4
+  - boy1
+  - candy3
+  m_Tag: 0_0_Images
+  m_IsVariant: 0
