@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
@@ -45,9 +46,10 @@ public class AudioService
         _gameModeSource.Play();
     }
 
-    public async void PlayOneShot(AudioClip clip)
+    public async void PlayOneShot(AudioClip clip, float volume)
     {
         var source = GetAudioSource();
+        source.volume = volume;
         source.PlayOneShot(clip);
         await UniTask.WaitUntil(() => source == null || !source.isPlaying);
         if (source != null)
@@ -66,7 +68,6 @@ public class AudioService
             var source = new GameObject("SpawnedAudioSource");
             source.transform.SetParent(_spawnRoot.transform);
             result = source.AddComponent<AudioSource>();
-            result.volume = .25f;
         }
         
         _audioSourcesInUse.Add(result);
@@ -81,5 +82,16 @@ public class AudioService
 
         _audioSourcesInUse.Remove(source);
         _freeAudioSources.Add(source);
+    }
+
+    public void StopAll()
+    {
+        while(_audioSourcesInUse.Count > 0)
+        {
+            var obj = _audioSourcesInUse.ElementAt(0);
+            obj.Stop();
+            _freeAudioSources.Add(obj);
+        }
+        _gameModeSource.Stop();
     }
 }

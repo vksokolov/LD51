@@ -28,13 +28,13 @@ public class Pistol : MonoBehaviour
             Shoot();
     }
 
-    private void Jam() => _audioService.PlayOneShot(_jamSounds.GetRandom());
+    private void Jam() => _audioService.PlayOneShot(_jamSounds.GetRandom(), .5f);
 
     private void Shoot()
     {
         var bullet = Instantiate(_bulletPrefab);
         bullet.transform.position = transform.position + transform.right * StartPosOffset;
         bullet.Init(transform.right, 10, 10);
-        _audioService.PlayOneShot(_shotSounds.GetRandom());
+        _audioService.PlayOneShot(_shotSounds.GetRandom(), .1f);
     }
 }

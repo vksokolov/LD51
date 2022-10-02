@@ -275,6 +275,7 @@ Transform:
   m_Children:
   - {fileID: 578617711235848810}
   - {fileID: 6112295267840668400}
+  - {fileID: 8122486222894073404}
   - {fileID: 7956953336295875607}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -291,12 +292,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fd3530ba9839a644bc258a3f9406c4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Camera: {fileID: 0}
   Speed: 5
   MidPointToCursor: {fileID: 7956953336295875607}
-  Cursor: {fileID: 0}
   CameraLerp: 0.099
-  Pistol: {fileID: 4066049510195475066, guid: 88bd6f90165579244b99a96a2f60117e, type: 3}
+  Pistol: {fileID: 8122486222894073407}
   BulletPrefab: {fileID: 5734557561402082934, guid: b60a3c132c20c164587ee0c61dcc0641,
     type: 3}
 --- !u!58 &1398389570997790420
@@ -363,5 +362,97 @@ Transform:
   m_Children:
   - {fileID: 7956953335957134344}
   m_Father: {fileID: 7956953336219965351}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &5248202455790990405
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 7956953336219965351}
+    m_Modifications:
+    - target: {fileID: 4066049510195475065, guid: 88bd6f90165579244b99a96a2f60117e,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4066049510195475065, guid: 88bd6f90165579244b99a96a2f60117e,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.63
+      objectReference: {fileID: 0}
+    - target: {fileID: 4066049510195475065, guid: 88bd6f90165579244b99a96a2f60117e,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.547
+      objectReference: {fileID: 0}
+    - target: {fileID: 4066049510195475065, guid: 88bd6f90165579244b99a96a2f60117e,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4066049510195475065, guid: 88bd6f90165579244b99a96a2f60117e,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4066049510195475065, guid: 88bd6f90165579244b99a96a2f60117e,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4066049510195475065, guid: 88bd6f90165579244b99a96a2f60117e,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4066049510195475065, guid: 88bd6f90165579244b99a96a2f60117e,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4066049510195475065, guid: 88bd6f90165579244b99a96a2f60117e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4066049510195475065, guid: 88bd6f90165579244b99a96a2f60117e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4066049510195475065, guid: 88bd6f90165579244b99a96a2f60117e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4066049510195475067, guid: 88bd6f90165579244b99a96a2f60117e,
+        type: 3}
+      propertyPath: m_Name
+      value: Pistol
+      objectReference: {fileID: 0}
+    - target: {fileID: 4066049510195475067, guid: 88bd6f90165579244b99a96a2f60117e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 88bd6f90165579244b99a96a2f60117e, type: 3}
+--- !u!4 &8122486222894073404 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4066049510195475065, guid: 88bd6f90165579244b99a96a2f60117e,
+    type: 3}
+  m_PrefabInstance: {fileID: 5248202455790990405}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8122486222894073407 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4066049510195475066, guid: 88bd6f90165579244b99a96a2f60117e,
+    type: 3}
+  m_PrefabInstance: {fileID: 5248202455790990405}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be7921b262f2dde42a63f7b336440088, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

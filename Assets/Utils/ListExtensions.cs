@@ -31,4 +31,11 @@ public static class ListExtensions
         list.RemoveAt(rand);
         return true;
     }
+
+    public static T ExtractAt<T>(this List<T> list, int index)
+    {
+        var obj = list[index];
+        list.RemoveAt(index);
+        return obj;
+    }
 }

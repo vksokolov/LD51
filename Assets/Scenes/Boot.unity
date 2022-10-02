@@ -400,7 +400,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -718,7 +718,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1189340185}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 852.6922, y: 484.78012, z: -1215.1416}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1772852171}
@@ -1098,7 +1098,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -1223,20 +1223,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a07593e1fbb0f34db581dc72f2d52d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameModeProgressBar: {fileID: 1930643460}
-  GameModeTextWrapper: {fileID: 1930643459}
-  FullScreenFade: {fileID: 947650371}
-  ScoreWrapper: {fileID: 1930643457}
-  ScoreText: {fileID: 1930643458}
-  _player: {fileID: 7956953336219965348, guid: 1ede186919aa31741b99f1ae4fe99534, type: 3}
+  _mainCamera: {fileID: 1053441220}
+  _virtualCamera: {fileID: 307712055}
+  _gameModeProgressBar: {fileID: 1930643460}
+  _gameModeTextWrapper: {fileID: 1930643459}
+  _fullScreenFade: {fileID: 947650371}
+  _scoreWrapper: {fileID: 1930643457}
+  _scoreText: {fileID: 1930643458}
+  _playerPrefab: {fileID: 7956953336219965348, guid: 1ede186919aa31741b99f1ae4fe99534,
+    type: 3}
   _root: {fileID: 1636756416}
   _enemyPrefab: {fileID: 4502598070505282747, guid: b80b7393bb2d30144a9898ed30bceefe,
     type: 3}
-  _secondsToSpawn: 1
-  _minDistanceToPlayer: 7
+  _secondsToSpawn: 0.5
+  _minDistanceToPlayer: 8
   _gameMenu: {fileID: 2104232000}
   _startButton: {fileID: 1346384053}
-  _gameOver: {fileID: 240809367}
+  _gameOverMenu: {fileID: 240809367}
   _toMainMenuButton: {fileID: 2138329908}
   _mainSource: {fileID: 1772852172}
   _modeSource: {fileID: 743184467}

@@ -9,15 +9,19 @@ public class GameModeService
 {
     private const int DontRepeat = 3;
 
-    private List<GameModeModifier> _modifiers;
+    private readonly List<GameModeModifier> _modifiers;
 
+    private readonly GameModeModifier _defaultModifier = new EnemySpeedModifier(
+        "GAME RULE TITLE",
+        "game rule description",
+        1);
     public event Action<GameModeInfo> GameModeChanged;
-    private Queue<GameModeModifier> _usedModifiers = new Queue<GameModeModifier>();
+    private readonly Queue<GameModeModifier> _usedModifiers = new Queue<GameModeModifier>();
     
     private GameModeModifier _currentMode;
-    private GameModeTextWrapper _gameModeTextWrapper;
-    private GameObject _fullScreenFade;
-    private TimeService _timeService;
+    private readonly GameModeTextWrapper _gameModeTextWrapper;
+    private readonly GameObject _fullScreenFade;
+    private readonly TimeService _timeService;
     
     public GameModeService(
         GameModeTextWrapper gameModeTextWrapper,
@@ -26,7 +30,6 @@ public class GameModeService
     {
         _gameModeTextWrapper = gameModeTextWrapper;
         _fullScreenFade = fullScreenFade;
-        GameModeChanged += _gameModeTextWrapper.OnGameModeChanged;
         _modifiers = new List<GameModeModifier>()
         {
             new EnemySpeedModifier("FASTER ENEMIES", "just.. run!", 1.6f),
@@ -37,12 +40,14 @@ public class GameModeService
         };
         _timeService = timeService;
         Subscribe();
+        ApplyDefaultMode();
     }
 
     public List<GameModeInfo> GetModifierInfos() => _modifiers.Select(x => x.Info).ToList();
 
     private void Subscribe()
     {
+        GameModeChanged += _gameModeTextWrapper.OnGameModeChanged;
         _timeService.TenSecondsPassed += ApplyRandomMode;
     }
 
@@ -51,8 +56,8 @@ public class GameModeService
         _timeService.TenSecondsPassed -= ApplyRandomMode;
         GameModeChanged = null;
     }
-    
-    public void ApplyRandomMode()
+
+    private void ApplyRandomMode()
     {
         RemoveOldMode();
         ApplyNewMode();
@@ -83,5 +88,16 @@ public class GameModeService
     {
         RemoveOldMode();
         Unsubscribe();
+        ApplyDefaultMode();
+    }
+
+    private void ApplyDefaultMode()
+    {
+        if (_currentMode != null)
+            _currentMode.Remove();
+        
+        _currentMode = _defaultModifier;
+        _currentMode.Apply();
+        _currentMode = null;
     }
 }

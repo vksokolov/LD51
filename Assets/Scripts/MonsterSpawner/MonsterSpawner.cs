@@ -3,9 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Utils;
 using Random = UnityEngine.Random;
 
-public class MonsterSpawner : MonoBehaviour
+public class MonsterSpawner : MonoBehaviour, IDisposable
 {
     private Transform _root;
     private Enemy _enemyPrefab;
@@ -14,6 +15,8 @@ public class MonsterSpawner : MonoBehaviour
     private float MinSqrDistanceToPlayer => _minDistanceToPlayer * _minDistanceToPlayer;
     
     private float _acc;
+
+    private ObjectPool<Enemy, Enemy> _pool;
 
     public void Init(
         Transform root,
@@ -25,7 +28,16 @@ public class MonsterSpawner : MonoBehaviour
         _enemyPrefab = enemyPrefab;
         _secondsToSpawn = secondsToSpawn;
         _minDistanceToPlayer = minDistanceToPlayer;
+
+        _pool = new ObjectPool<Enemy, Enemy>(
+            enemy => enemy,
+            () => Instantiate(enemyPrefab, _root),
+            enemy =>
+            {
+                enemy.Reset();
+            });
     }
+    
     private void Update()
     {
         _acc += Time.deltaTime;
@@ -37,7 +49,7 @@ public class MonsterSpawner : MonoBehaviour
 
     private void SpawnEnemy()
     {
-        var obj = Instantiate(_enemyPrefab, _root);
+        var obj = _pool.GetObject();
 
         var playerPos = Player.Instance.transform.position;
         var randomPos = (Vector3) Random.insideUnitCircle + playerPos;
@@ -46,5 +58,18 @@ public class MonsterSpawner : MonoBehaviour
             randomPos = dist.normalized * _minDistanceToPlayer + playerPos;
         
         obj.transform.position = randomPos;
+        obj.OnDie += () => OnEnemyDied(obj);
+        
+        obj.gameObject.SetActive(true);
+    }
+
+    private void OnEnemyDied(Enemy enemy)
+    {
+        _pool.FreeObject(enemy);
+    }
+
+    public void Dispose()
+    {
+        _pool.FreeAll();
     }
 }
