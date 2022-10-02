@@ -33,6 +33,7 @@ public class GameModeService
             new EnemySpeedModifier("SLOWER ENEMIES", "chill a bit :>", .65f),
             new InputModifier("INPUT INVERTED", "@#$%^&*", InputModifier.InvertedAxis.Horizontal | InputModifier.InvertedAxis.Vertical),
             new FuncModifier("GLAUCOMA", "you can't see a thing", TurnOnFade, TurnOffFade),
+            new GunJamModifier("JAM", "the bad one", .75f),
         };
         _timeService = timeService;
         Subscribe();

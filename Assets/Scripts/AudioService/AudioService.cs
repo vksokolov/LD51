@@ -49,8 +49,9 @@ public class AudioService
     {
         var source = GetAudioSource();
         source.PlayOneShot(clip);
-        await UniTask.WaitUntil(() => !source.isPlaying);
-        FreeAudioSource(source);
+        await UniTask.WaitUntil(() => source == null || !source.isPlaying);
+        if (source != null)
+            FreeAudioSource(source);
     }
 
     private AudioSource GetAudioSource()
@@ -65,6 +66,7 @@ public class AudioService
             var source = new GameObject("SpawnedAudioSource");
             source.transform.SetParent(_spawnRoot.transform);
             result = source.AddComponent<AudioSource>();
+            result.volume = .25f;
         }
         
         _audioSourcesInUse.Add(result);
