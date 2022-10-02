@@ -125,3 +125,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be7921b262f2dde42a63f7b336440088, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _shotSounds:
+  - {fileID: 8300000, guid: be092732122e78d489b337660dad6395, type: 3}
+  - {fileID: 8300000, guid: c1560d6f1d367e6448444865c19b2477, type: 3}
+  - {fileID: 8300000, guid: 4dfd7713fef78b0438387c248632f7d7, type: 3}
+  - {fileID: 8300000, guid: b600b884820b00248a0964e1c554a9ba, type: 3}
+  _jamSounds:
+  - {fileID: 8300000, guid: 30d64412651e9df41acc5bdf27c36b50, type: 3}

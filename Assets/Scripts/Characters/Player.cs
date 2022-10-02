@@ -26,8 +26,10 @@ public class Player : MonoBehaviour
     public Bullet BulletPrefab;
 
     public ReactiveProperty<int> Score;
+    private AudioService _audioService;
     public event Action OnDie;
-    private bool isDead = false;
+    private bool isDead;
+    private bool _isInitialized = false;
     
     private enum MovementDirection
     {
@@ -57,26 +59,28 @@ public class Player : MonoBehaviour
             KeyCode.S,
             KeyCode.D);
     
-    private void Awake()
-    {
-        Reset();
-    }
-
     public void Reset()
     {
         _animator = GetComponent<Animator>();
         isDead = false;
         Instance = this;
-        Pistol.Init(BulletPrefab);
+        Pistol.Init(BulletPrefab, _audioService);
         SetDefaultControls();
         Enemy.OnKill -= OnKill;
         Enemy.OnKill += OnKill;
         Score = new ReactiveProperty<int>(0);
     }
 
+    public void Init(AudioService audioService)
+    {
+        _audioService = audioService;
+        Reset();
+        _isInitialized = true;
+    }
+    
     private void Update()
     {
-        if (isDead) return;
+        if (isDead || !_isInitialized) return;
         
         Move();
         Shoot();
@@ -108,7 +112,7 @@ public class Player : MonoBehaviour
     private void Shoot()
     {
         if (Input.GetMouseButtonDown(0))
-            Pistol.Shoot();
+            Pistol.TryShoot();
     }
     
     private void LookAtCursor()

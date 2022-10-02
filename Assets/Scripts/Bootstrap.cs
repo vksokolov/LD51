@@ -20,6 +20,9 @@ public class Bootstrap : MonoBehaviour
     [Header("Score")]
     [SerializeField] private Transform ScoreWrapper;
     [SerializeField] private TextMeshProUGUI ScoreText;
+
+    [Header("Player")] 
+    [SerializeField] private Player _player;
     
     [Header("Monster Spawner")]
     [SerializeField] private Transform _root;
@@ -90,12 +93,12 @@ public class Bootstrap : MonoBehaviour
         
         // Player
         
-        Player.Instance.Reset();
-        Player.Instance.Score
+        _player.Init(_audioService);
+        _player.Score
             .ObserveEveryValueChanged(x => x.Value)
             .Subscribe(SetScoreText);
-        Player.Instance.OnDie += ShowGameOverScreen;
-        Player.Instance.OnDie += _gameModeService.Unsubscribe;
+        _player.OnDie += ShowGameOverScreen;
+        _player.OnDie += _gameModeService.Unsubscribe;
         
         // Score
         

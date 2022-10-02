@@ -1503,6 +1503,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 965004905}
   m_CullTransparentMesh: 0
+--- !u!114 &989065981 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7956953336219965348, guid: 1ede186919aa31741b99f1ae4fe99534,
+    type: 3}
+  m_PrefabInstance: {fileID: 7956953336107851273}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fd3530ba9839a644bc258a3f9406c4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1053441218
 GameObject:
   m_ObjectHideFlags: 0
@@ -1650,7 +1662,7 @@ Transform:
   m_Children:
   - {fileID: 50625960}
   m_Father: {fileID: 248596910}
-  m_RootOrder: 4
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1209393827
 GameObject:
@@ -2416,6 +2428,7 @@ MonoBehaviour:
   FullScreenFade: {fileID: 947650371}
   ScoreWrapper: {fileID: 1941164996}
   ScoreText: {fileID: 1651681886}
+  _player: {fileID: 989065981}
   _root: {fileID: 1636756416}
   _enemyPrefab: {fileID: 4502598070505282747, guid: b80b7393bb2d30144a9898ed30bceefe,
     type: 3}
@@ -2433,6 +2446,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 5861093647950804393f6665d6a8688f, type: 3}
   - {fileID: 8300000, guid: 6ac5a7fe8f1d0e342822f27b7fd7e1da, type: 3}
   - {fileID: 8300000, guid: 74ab8531c0986cf429cb945ce7d7839e, type: 3}
+  - {fileID: 8300000, guid: 1e7185f23d50ffd4082094d324e4997f, type: 3}
 --- !u!1 &1827855748
 GameObject:
   m_ObjectHideFlags: 0
