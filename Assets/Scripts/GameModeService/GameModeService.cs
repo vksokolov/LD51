@@ -29,7 +29,7 @@ public class GameModeService
         GameModeChanged += _gameModeTextWrapper.OnGameModeChanged;
         _modifiers = new List<GameModeModifier>()
         {
-            new EnemySpeedModifier("FASTER ENEMIES", "just.. run!", 1.4f),
+            new EnemySpeedModifier("FASTER ENEMIES", "just.. run!", 1.6f),
             new EnemySpeedModifier("SLOWER ENEMIES", "chill a bit :>", .65f),
             new InputModifier("INPUT INVERTED", "@#$%^&*", InputModifier.InvertedAxis.Horizontal | InputModifier.InvertedAxis.Vertical),
             new FuncModifier("GLAUCOMA", "you can't see a thing", TurnOnFade, TurnOffFade),

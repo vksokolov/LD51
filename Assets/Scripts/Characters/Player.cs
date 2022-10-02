@@ -5,16 +5,21 @@ using UniRx;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+[RequireComponent(typeof(Animator))]
 public class Player : MonoBehaviour
 {
+    private const string AnimatorIsMovingTrigger = "IsMoving";
+    private static readonly int IsMoving = Animator.StringToHash(AnimatorIsMovingTrigger);
     public static Player Instance { get; private set; }
     
-    public Camera Camera;
-    public float Speed;
-    public Transform MidPointToCursor;
-    public Transform Cursor;
+    [SerializeField] private Camera Camera;
+    [SerializeField] private float Speed;
+    [SerializeField] private Transform MidPointToCursor;
+    [SerializeField] private Transform Cursor;
     [Range(0,1f)]
-    public float CameraLerp;
+    [SerializeField] private float CameraLerp;
+
+    private Animator _animator;
     
     [Header("Pistol")]
     public Pistol Pistol;
@@ -33,6 +38,7 @@ public class Player : MonoBehaviour
     }
     
     private Dictionary<MoveDirection, KeyCode> _inputMap;
+
     public void SetControls(KeyCode up, KeyCode left, KeyCode down, KeyCode right)
     {
         _inputMap = new Dictionary<MoveDirection, KeyCode>()
@@ -58,6 +64,7 @@ public class Player : MonoBehaviour
 
     public void Reset()
     {
+        _animator = GetComponent<Animator>();
         isDead = false;
         Instance = this;
         Pistol.Init(BulletPrefab);
@@ -94,6 +101,8 @@ public class Player : MonoBehaviour
             dir += Vector3.right;
 
         transform.position += dir * (Time.deltaTime * Speed);
+        
+        _animator.SetBool(IsMoving, dir != Vector3.zero);
     }
 
     private void Shoot()
